@@ -1,0 +1,217 @@
+EVA1_6_AUTOINCREMENT.
+
+MySQL Shell 8.0.38
+
+Copyright (c) 2016, 2024, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 10
+Server version: 8.0.39 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd_e1
+Default schema set to `tbd_e1`.
+Fetching global names, object names from `tbd_e1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > show table;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > show tables;
++------------------+
+| Tables_in_tbd_e1 |
++------------------+
+| automovil        |
+| student          |
++------------------+
+2 rows in set (0.2634 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > create table tv (
+                                       -> id int key,
+                                       -> marca varchar(50) not null,
+                                       -> modelo varchar(50) not null,
+                                       -> tama int not null,
+                                       -> tipo varchar(50));
+Query OK, 0 rows affected (12.5637 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > desc tv;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   | PRI | NULL    |       |
+| marca  | varchar(50) | NO   |     | NULL    |       |
+| modelo | varchar(50) | NO   |     | NULL    |       |
+| tama   | int         | NO   |     | NULL    |       |
+| tipo   | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (1.5990 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into tv (tipo)
+                                       -> value("LED");
+ERROR: 1364 (HY000): Field 'id' doesn't have a default value
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into tv (id, marca, modelo, tasa)
+                                       -> value(5, "SONY", "BRAVIA", 75);
+ERROR: 1054 (42S22): Unknown column 'tasa' in 'field list'
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into tv (id, marca, modelo, tama) value(5, "SONY", "BRAVIA", 75);
+Query OK, 1 row affected (11.5493 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into tv (id, marca, modelo, tama) value(5, "SONY", "BRAVIA", 75);
+ERROR: 1062 (23000): Duplicate entry '5' for key 'tv.PRIMARY'
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into tv (id, marca, modelo, tama) value(2, "SAMSUNG", "SMARTTV", 100, "OLED");
+ERROR: 1136 (21S01): Column count doesn't match value count at row 1
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into tv (id, marca, modelo, tama, tipo) value(2, "SAMSUNG", "SMARTTV", 100, "OLED");
+Query OK, 1 row affected (7.6740 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > select count (*) from tv;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) from tv' at line 1
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > select count(*) from tv;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.4852 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > select * from tv;
++----+---------+---------+------+------+
+| id | marca   | modelo  | tama | tipo |
++----+---------+---------+------+------+
+|  2 | SAMSUNG | SMARTTV |  100 | OLED |
+|  5 | SONY    | BRAVIA  |   75 | NULL |
++----+---------+---------+------+------+
+2 rows in set (0.0020 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into tv (id, marca, modelo, tama) value(1, "SONY", "BRAVIA", 75);
+Query OK, 1 row affected (4.1727 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > select * from tv;
++----+---------+---------+------+------+
+| id | marca   | modelo  | tama | tipo |
++----+---------+---------+------+------+
+|  1 | SONY    | BRAVIA  |   75 | NULL |
+|  2 | SAMSUNG | SMARTTV |  100 | OLED |
+|  5 | SONY    | BRAVIA  |   75 | NULL |
++----+---------+---------+------+------+
+3 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > desc tv;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   | PRI | NULL    |       |
+| marca  | varchar(50) | NO   |     | NULL    |       |
+| modelo | varchar(50) | NO   |     | NULL    |       |
+| tama   | int         | NO   |     | NULL    |       |
+| tipo   | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.0057 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > create table movies(
+                                       -> id int auto_increment key,
+                                       -> titulo varchar(50) not null,
+                                       -> genero varchar(50) not null,
+                                       -> clasi varchar(5) not null);
+Query OK, 0 rows affected (3.1474 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into peliculas(titulo, genero, clasi)
+                                       -> values ("Coraline", "Terror", "PG");
+ERROR: 1146 (42S02): Table 'tbd_e1.peliculas' doesn't exist
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into movies(titulo, genero, clasi) values ("Coraline", "Terror", "PG");
+
+Query OK, 1 row affected (2.3341 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > desc movies;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| titulo | varchar(50) | NO   |     | NULL    |                |
+| genero | varchar(50) | NO   |     | NULL    |                |
+| clasi  | varchar(5)  | NO   |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0043 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > select * from movies;
++----+----------+--------+-------+
+| id | titulo   | genero | clasi |
++----+----------+--------+-------+
+|  1 | Coraline | Terror | PG    |
++----+----------+--------+-------+
+1 row in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into movies(titulo, genero, clasi) values ("TITANIC", "Comedia", "R");
+Query OK, 1 row affected (1.2845 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into movies(id, titulo, genero, clasi) values (14,"ALIEN", "Terror", "PG13");
+Query OK, 1 row affected (8.8468 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into movies(id, titulo, genero, clasi) values (14,"dbd", "Terror", "PG13");
+ERROR: 1062 (23000): Duplicate entry '14' for key 'movies.PRIMARY'
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into movies(id, titulo, genero, clasi) values (3,"Peacky Blinders", "Terror", "PG13");
+Query OK, 1 row affected (0.4743 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into movies(titulo, genero, clasi) values ("MARVEL GENERIC", "Action", "R");
+Query OK, 1 row affected (2.3535 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > select * from movies;
++----+-----------------+---------+-------+
+| id | titulo          | genero  | clasi |
++----+-----------------+---------+-------+
+|  1 | Coraline        | Terror  | PG    |
+|  2 | TITANIC         | Comedia | R     |
+|  3 | Peacky Blinders | Terror  | PG13  |
+| 14 | ALIEN           | Terror  | PG13  |
+| 15 | MARVEL GENERIC  | Action  | R     |
++----+-----------------+---------+-------+
+5 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into movies(titulo, genero, clasi) values ("VELOCIPASTOR", "ScyF", "R");
+Query OK, 1 row affected (3.2373 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > select * from movies;
++----+-----------------+---------+-------+
+| id | titulo          | genero  | clasi |
++----+-----------------+---------+-------+
+|  1 | Coraline        | Terror  | PG    |
+|  2 | TITANIC         | Comedia | R     |
+|  3 | Peacky Blinders | Terror  | PG13  |
+| 14 | ALIEN           | Terror  | PG13  |
+| 15 | MARVEL GENERIC  | Action  | R     |
+| 16 | VELOCIPASTOR    | ScyF    | R     |
++----+-----------------+---------+-------+
+6 rows in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > desc movies;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int         | NO   | PRI | NULL    | auto_increment |
+| titulo | varchar(50) | NO   |     | NULL    |                |
+| genero | varchar(50) | NO   |     | NULL    |                |
+| clasi  | varchar(5)  | NO   |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0066 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > show tables;
++------------------+
+| Tables_in_tbd_e1 |
++------------------+
+| automovil        |
+| movies           |
+| student          |
+| tv               |
++------------------+
+4 rows in set (0.7865 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > create table pet(id int auto_increment key, nombre varchar(50) not null, especie varchar(50) not null, raza varchar(20), owner varchar(20 not null);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null)' at line 1
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > create table pet(id int auto_increment key, nombre varchar(50) not null, especie varchar(50) not null, raza varchar(20), owner varchar(20) not null);
+Query OK, 0 rows affected (13.8240 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into pet (nombre, especie, raza, owner)
+                                       -> values ("Blueberry", "Perro", "Husky ojos azules", "Alan R");
+Query OK, 1 row affected (0.2868 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > insert into pet (nombre, especie, raza, owner) values ("Cyndirella", "Perro", "Husky ojos marrones", "Danna F");
+Query OK, 1 row affected (0.1544 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > desc pet;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| id      | int         | NO   | PRI | NULL    | auto_increment |
+| nombre  | varchar(50) | NO   |     | NULL    |                |
+| especie | varchar(50) | NO   |     | NULL    |                |
+| raza    | varchar(20) | YES  |     | NULL    |                |
+| owner   | varchar(20) | NO   |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+5 rows in set (0.0043 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL >
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > shoe * from pet;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shoe * from pet' at line 1
+ MySQL  localhost:3306 ssl  tbd_e1  SQL > select * from pet;
++----+------------+---------+---------------------+---------+
+| id | nombre     | especie | raza                | owner   |
++----+------------+---------+---------------------+---------+
+|  1 | Blueberry  | Perro   | Husky ojos azules   | Alan R  |
+|  2 | Cyndirella | Perro   | Husky ojos marrones | Danna F |
++----+------------+---------+---------------------+---------+
+2 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  tbd_e1  SQL >
